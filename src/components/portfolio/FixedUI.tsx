@@ -18,6 +18,7 @@ export function FixedUI({
     pointerEvents: hideFixedUI ? ("none" as const) : ("auto" as const),
     transition: "opacity 1.5s linear",
   };
+
   return (
     <>
       <h1 className="logo hd pf">Daniel</h1>
@@ -48,10 +49,10 @@ export function FixedUI({
       <div className="join pf" style={fadeStyle}>
         <i>
           <a href={socialLinks.email} target="_blank" rel="noopener noreferrer">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/join.png" alt="Contact Alicia Martin" />
+            <img src="/images/join.png" alt="Contact Daniel" />
           </a>
         </i>
+
         <a
           href={socialLinks.discord}
           target="_blank"
@@ -59,13 +60,7 @@ export function FixedUI({
           className="twitter_ico hoverStyle pa"
           aria-label="Discord"
         />
-        <a
-          href={socialLinks.skype}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="xterio_ico hoverStyle pa"
-          aria-label="Skype"
-        />
+
         <a
           href={socialLinks.telegram}
           target="_blank"
