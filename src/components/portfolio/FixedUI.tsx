@@ -49,7 +49,7 @@ export function FixedUI({
         <i>
           <a href={socialLinks.email} target="_blank" rel="noopener noreferrer">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/join.png" alt="Contact Daniel Serrano" />
+            <img src="/images/join.png" alt="Contact Alicia Martin" />
           </a>
         </i>
         <a

@@ -1,6 +1,6 @@
-# Daniel Serrano Portfolio (Next.js)
+# Alicia Martin Portfolio (Next.js)
 
-A clean Next.js rebuild of the [Daniel Serrano portfolio](https://daniel0629.vercel.app), recreated from the cloned source with the same horizontal-scroll experience, animated backgrounds, interactive hotspots, and project carousels.
+A clean Next.js rebuild of the [Alicia Martin portfolio](https://daniel0629.vercel.app), recreated from the cloned source with the same horizontal-scroll experience, animated backgrounds, interactive hotspots, and project carousels.
 
 ## Features
 

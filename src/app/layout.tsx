@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://daniel0629.vercel.app"),
-  title: "Daniel Serrano",
+  title: "Alicia Martin",
   description: "Full Stack && Web3 Developer",
   keywords: [
     "HTML",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "Solidity",
     "Web3.js",
   ],
-  authors: [{ name: "Daniel Serrano" }],
+  authors: [{ name: "Alicia Martin" }],
   openGraph: {
     title: "Full Stack && Web3 Developer",
     description:
