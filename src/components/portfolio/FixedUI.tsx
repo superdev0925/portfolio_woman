@@ -21,7 +21,7 @@ export function FixedUI({
 
   return (
     <>
-      <h1 className="logo hd pf">Daniel</h1>
+      <h1 className="logo hd pf">Alicia</h1>
 
       <div
         id="musicBtn"
@@ -49,7 +49,7 @@ export function FixedUI({
       <div className="join pf" style={fadeStyle}>
         <i>
           <a href={socialLinks.email} target="_blank" rel="noopener noreferrer">
-            <img src="/images/join.png" alt="Contact Daniel" />
+            <img src="/images/join.png" alt="Contact Alicia" />
           </a>
         </i>
 

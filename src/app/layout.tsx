@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://daniel0629.vercel.app"),
+  metadataBase: new URL("https://aliciamartin-portfolio.netlify.app/"),
   title: "Alicia Martin",
   description: "Full Stack && Web3 Developer",
   keywords: [
@@ -22,8 +22,8 @@ export const metadata: Metadata = {
     title: "Full Stack && Web3 Developer",
     description:
       "I am a highly skilled blockchain and full stack developer with extensive experience in designing and implementing complex decentralized applications and web solutions.",
-    url: "https://daniel0629.vercel.app/",
-    siteName: "Daniel's Portfolio",
+    url: "https://aliciamartin-portfolio.netlify.app/",
+    siteName: "Alicia's Portfolio",
     images: ["/images/bg.png"],
   },
 };
