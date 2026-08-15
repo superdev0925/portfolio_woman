@@ -200,7 +200,7 @@ export const socialLinks = {
   email:
     "mailto:alicia0925martin@gmail.com?subject=Hello&body=Hi%20there! I saw your portfolio.",
   discord: "https://discordapp.com/users/1506318029984764036",
-  telegram: "https://t.me/jayson_liew925",
+  telegram: "https://t.me/crystal_xxk2",
 };
 
 export const aboutText =
