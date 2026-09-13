@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState, type RefObject } from "react";
+import { applyRemScale } from "@/hooks/useRemScale";
+
+const WRAP_WIDTH_REM = 88.89;
 
 export interface ScrollState {
   percent: number;
@@ -34,32 +37,40 @@ function getScrollState(percent: number): ScrollState {
   };
 }
 
-function syncBodyToWrap(element: HTMLElement) {
-  const travel = Math.max(element.offsetWidth - window.innerWidth, 0);
-  document.body.style.height = `${travel + window.innerHeight}px`;
+function getTravel(element: HTMLElement) {
+  applyRemScale();
+  void element.offsetWidth;
+
+  const measured = element.offsetWidth - window.innerWidth;
+  if (measured > 1) return measured;
+
+  const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+  return Math.max(WRAP_WIDTH_REM * rem - window.innerWidth, 0);
 }
 
 export function useHorizontalScroll(
   scrollRef: RefObject<HTMLElement | null>,
+  remReady = true,
   onScrollChange?: (state: ScrollState) => void,
 ) {
   const [scrollState, setScrollState] = useState<ScrollState>(initialState);
 
   useEffect(() => {
+    if (!remReady) return;
+
+    let travel = 0;
+
     const updateScroll = () => {
       const element = scrollRef.current;
       if (!element) return;
 
       const totalHeight = document.documentElement.scrollHeight;
       const winHeight = window.innerHeight;
-      const winWidth = window.innerWidth;
       const currY = window.scrollY;
-      const diff = totalHeight - winHeight;
-      const percent = diff !== 0 ? Math.min(currY / diff, 1) : 0;
+      const diff = Math.max(totalHeight - winHeight, 0);
+      const percent = diff !== 0 ? Math.min(Math.max(currY / diff, 0), 1) : 0;
 
-      const deltaW = Math.max(element.offsetWidth - winWidth, 0);
-      const pos = Math.floor(deltaW * percent) * -1;
-      element.style.transform = `translateX(${pos}px)`;
+      element.style.transform = `translateX(${Math.floor(travel * percent) * -1}px)`;
 
       const nextState = getScrollState(percent);
       setScrollState(nextState);
@@ -67,22 +78,27 @@ export function useHorizontalScroll(
     };
 
     const updateLayout = () => {
-      if (scrollRef.current) {
-        syncBodyToWrap(scrollRef.current);
-      }
+      const element = scrollRef.current;
+      if (!element) return;
+      travel = getTravel(element);
+      document.body.style.height = `${travel + window.innerHeight}px`;
       updateScroll();
     };
 
     updateLayout();
+    const retry = window.requestAnimationFrame(() => {
+      updateLayout();
+    });
+
     window.addEventListener("scroll", updateScroll, { passive: true });
     window.addEventListener("resize", updateLayout);
 
     return () => {
+      window.cancelAnimationFrame(retry);
       window.removeEventListener("scroll", updateScroll);
       window.removeEventListener("resize", updateLayout);
-      document.body.style.height = "";
     };
-  }, [scrollRef, onScrollChange]);
+  }, [scrollRef, remReady, onScrollChange]);
 
   return scrollState;
 }

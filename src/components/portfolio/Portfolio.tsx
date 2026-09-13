@@ -19,9 +19,8 @@ export function Portfolio() {
   const { audioRef, isPlaying, toggle } = useMusic();
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(null);
 
-  useRemScale();
-
-  const scrollState = useHorizontalScroll(scrollRef);
+  const remReady = useRemScale();
+  const scrollState = useHorizontalScroll(scrollRef, remReady);
 
   return (
     <>
