@@ -2,8 +2,6 @@
 
 import { useEffect, useState, type RefObject } from "react";
 
-const SCROLL_HEIGHT = 10000;
-
 export interface ScrollState {
   percent: number;
   showCareerPoints: boolean;
@@ -27,13 +25,18 @@ const initialState: ScrollState = {
 function getScrollState(percent: number): ScrollState {
   return {
     percent,
-    showCareerPoints: percent > 0.15,
+    showCareerPoints: percent > 0.12,
     showAbout: percent > 0.41,
     showShowcase: percent > 0.62,
-    showProjects: percent > 0.72,
-    showSkills: percent > 0.92,
-    hideFixedUI: percent > 0.97,
+    showProjects: percent > 0.48,
+    showSkills: percent > 0.62,
+    hideFixedUI: percent > 0.9,
   };
+}
+
+function syncBodyToWrap(element: HTMLElement) {
+  const travel = Math.max(element.offsetWidth - window.innerWidth, 0);
+  document.body.style.height = `${travel + window.innerHeight}px`;
 }
 
 export function useHorizontalScroll(
@@ -43,8 +46,6 @@ export function useHorizontalScroll(
   const [scrollState, setScrollState] = useState<ScrollState>(initialState);
 
   useEffect(() => {
-    document.body.style.height = `${SCROLL_HEIGHT}px`;
-
     const updateScroll = () => {
       const element = scrollRef.current;
       if (!element) return;
@@ -54,13 +55,9 @@ export function useHorizontalScroll(
       const winWidth = window.innerWidth;
       const currY = window.scrollY;
       const diff = totalHeight - winHeight;
-      const percent = diff !== 0 ? currY / diff : 0;
+      const percent = diff !== 0 ? Math.min(currY / diff, 1) : 0;
 
-      let deltaW = element.offsetWidth - winWidth;
-      if (deltaW <= 0) {
-        deltaW = element.offsetWidth;
-      }
-
+      const deltaW = Math.max(element.offsetWidth - winWidth, 0);
       const pos = Math.floor(deltaW * percent) * -1;
       element.style.transform = `translateX(${pos}px)`;
 
@@ -69,13 +66,20 @@ export function useHorizontalScroll(
       onScrollChange?.(nextState);
     };
 
-    updateScroll();
+    const updateLayout = () => {
+      if (scrollRef.current) {
+        syncBodyToWrap(scrollRef.current);
+      }
+      updateScroll();
+    };
+
+    updateLayout();
     window.addEventListener("scroll", updateScroll, { passive: true });
-    window.addEventListener("resize", updateScroll);
+    window.addEventListener("resize", updateLayout);
 
     return () => {
       window.removeEventListener("scroll", updateScroll);
-      window.removeEventListener("resize", updateScroll);
+      window.removeEventListener("resize", updateLayout);
       document.body.style.height = "";
     };
   }, [scrollRef, onScrollChange]);

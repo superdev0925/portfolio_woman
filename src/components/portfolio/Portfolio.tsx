@@ -1,11 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  aboutText,
-  careerPoints,
-  skillPoints,
-} from "@/data/portfolio";
+import { useRef, useState } from "react";
+import { careerPoints, introLetter } from "@/data/portfolio";
 import { useRemScale } from "@/hooks/useRemScale";
 import {
   scrollToTop,
@@ -15,29 +11,13 @@ import { useMusic } from "@/hooks/useMusic";
 import { BackgroundVideo } from "@/components/portfolio/BackgroundVideo";
 import { FixedUI } from "@/components/portfolio/FixedUI";
 import { InteractivePoint } from "@/components/portfolio/InteractivePoint";
-import { ProjectsSwiper } from "@/components/portfolio/ProjectsSwiper";
+import { ProjectViewer } from "@/components/portfolio/ProjectViewer";
 import { ScrollReveal } from "@/components/portfolio/ScrollReveal";
-import { ShowcaseSwiper } from "@/components/portfolio/ShowcaseSwiper";
-
-function highlightAboutText(text: string) {
-  const keywords = [
-    "blockchain",
-    "full stack developer",
-    "Ethereum, Solidity",
-    "smart contract",
-    "React, React Native, Node.js",
-    "Python",
-  ];
-
-  return keywords.reduce(
-    (result, keyword) => result.replace(keyword, `<i>${keyword}</i>`),
-    text,
-  );
-}
 
 export function Portfolio() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { audioRef, isPlaying, toggle } = useMusic();
+  const [openCategoryId, setOpenCategoryId] = useState<string | null>(null);
 
   useRemScale();
 
@@ -57,7 +37,7 @@ export function Portfolio() {
           <BackgroundVideo
             id="v1"
             src="/images/video1.mp4"
-            playing={scrollState.percent <= 0.137}
+            playing={scrollState.percent <= 0.22}
           />
         </section>
 
@@ -69,63 +49,41 @@ export function Portfolio() {
               point={point}
               variant="career"
               visible={scrollState.showCareerPoints}
+              onSelect={() => setOpenCategoryId(point.categoryId)}
             />
           ))}
           <BackgroundVideo
             id="v2"
             src="/images/video2.mp4"
-            playing={scrollState.percent <= 0.46}
-          />
-        </section>
-
-        <section className="bg3 pr">
-          <ScrollReveal visible={scrollState.showAbout} className="role3 pa" />
-          <ScrollReveal visible={scrollState.showAbout} className="movieBar pa">
-            <div className="movie_bg pa">
-              <div className="movieImg pa" />
-            </div>
-            <div className="movie_txt pa">
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: `<i>I</i>${highlightAboutText(aboutText.slice(1))}`,
-                }}
-              />
-            </div>
-          </ScrollReveal>
-          <BackgroundVideo
-            id="v3"
-            src="/images/video3.mp4"
-            playing={scrollState.percent <= 0.62}
-          />
-        </section>
-
-        <section className="bg4 pr">
-          <ScrollReveal
-            visible={scrollState.showProjects}
-            className="role4_1 pa"
-          />
-          <ScrollReveal
-            visible={scrollState.showProjects}
-            className="role4_2 pa"
-          />
-          <ShowcaseSwiper visible={scrollState.showShowcase} />
-          <ProjectsSwiper visible={scrollState.showProjects} />
-          <BackgroundVideo
-            id="v4"
-            src="/images/video4.mp4"
-            playing={scrollState.percent <= 0.9}
+            playing={scrollState.percent <= 0.82}
           />
         </section>
 
         <section className="bg5 pr">
-          {skillPoints.map((point) => (
-            <InteractivePoint
-              key={point.id}
-              point={point}
-              variant="skill"
-              visible={scrollState.showSkills}
-            />
-          ))}
+          <ScrollReveal visible={scrollState.showSkills} className="intro-letter pa">
+            <span className="intro-letter__star intro-letter__star--a" />
+            <span className="intro-letter__star intro-letter__star--b" />
+            <span className="intro-letter__star intro-letter__star--c" />
+            <span className="intro-letter__star intro-letter__star--d" />
+            <span className="intro-letter__star intro-letter__star--e" />
+            <p className="intro-letter__lead">
+              {introLetter.lead[0]}
+              <br />
+              {introLetter.lead[1]}
+            </p>
+            <p className="intro-letter__thanks">
+              {introLetter.thanks[0]}
+              <br />
+              {introLetter.thanks[1]}
+              <span className="intro-letter__heart"> ♡</span>
+            </p>
+            <p className="intro-letter__close">
+              {introLetter.close[0]}
+              <br />
+              {introLetter.close[1]}
+            </p>
+            <p className="intro-letter__name">{introLetter.name}</p>
+          </ScrollReveal>
           <BackgroundVideo id="v5" src="/images/video5.mp4" playing />
         </section>
 
@@ -145,6 +103,11 @@ export function Portfolio() {
           </div>
         </section>
       </div>
+
+      <ProjectViewer
+        categoryId={openCategoryId}
+        onClose={() => setOpenCategoryId(null)}
+      />
 
       <audio ref={audioRef} src="/images/audio.mp3" loop id="music" autoPlay />
     </>

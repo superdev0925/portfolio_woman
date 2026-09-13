@@ -8,10 +8,16 @@ export interface ProjectSlide {
   authorName: string;
 }
 
+export type CareerIcon = "clip" | "design" | "toonz" | "speed";
+export type CareerMarker = "ring" | "glow" | "soft";
+
 export interface CareerPoint {
   id: string;
   className: string;
   title: string;
+  icon: CareerIcon;
+  marker: CareerMarker;
+  categoryId: string;
   period: string;
   description: string;
 }
@@ -21,6 +27,27 @@ export interface SkillPoint {
   className: string;
   title: string;
   skills: string[];
+}
+
+export type ProjectCategoryIcon =
+  | "clip"
+  | "design"
+  | "fanart"
+  | "toonz"
+  | "speed";
+
+export type ProjectCategoryTheme = "rose" | "sky" | "pink" | "mint" | "lilac";
+
+export type ProjectMediaKind = "video" | "image";
+
+export interface ProjectCategory {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: ProjectCategoryIcon;
+  theme: ProjectCategoryTheme;
+  kind: ProjectMediaKind;
+  items: string[];
 }
 
 export const showcaseSlides: ShowcaseSlide[] = [
@@ -33,110 +60,48 @@ export const projectSlides: ProjectSlide[] = [
     imgSrc: "/images/a/1.PNG",
     authorName: "Humans.ai platform using Next.js and TailwindCSS",
   },
-  {
-    url: "https://www.datarails.com/",
-    imgSrc: "/images/a/2.PNG",
-    authorName: "chart diagrams demo",
-  },
-  {
-    url: "https://globalbeautyrank.com/",
-    imgSrc: "/images/a/3.png",
-    authorName: "Integrated Stripe of global beauty ratings site",
-  },
-  {
-    url: "http://www.lavalife.com/",
-    imgSrc: "/images/a/4.png",
-    authorName: "Lavalife dating app using React.js",
-  },
-  {
-    url: "https://ubiops.com/",
-    imgSrc: "/images/a/5.PNG",
-    authorName: "UbiOps Web Interface Development",
-  },
-  {
-    url: "https://www.optum.com/",
-    imgSrc: "/images/a/6.PNG",
-    authorName: "Healthcare Service Platform",
-  },
-  {
-    url: "https://apps.apple.com/us/app/ezcater-business-catering/id1162865183",
-    imgSrc: "/images/b/1.PNG",
-    authorName: "ezCater-Business Catering(Mobile APP)",
-  },
-  {
-    url: "https://apps.apple.com/us/app/the-good-pour/id6444543461?uo=2",
-    imgSrc: "/images/b/2.PNG",
-    authorName: "The Good Pour_React Native",
-  },
-  {
-    url: "https://apps.apple.com/us/app/blapp-black-owned-businesses/id1573799218",
-    imgSrc: "/images/b/3.PNG",
-    authorName: "Blapp - Black-owned businesses",
-  },
-  {
-    url: "https://thegrint.com/",
-    imgSrc: "/images/b/4.PNG",
-    authorName: "TheGrint_Golf APP",
-  },
-  {
-    url: "https://www.arthurmurrayofficial.com/",
-    imgSrc: "/images/b/5.PNG",
-    authorName: "Arthur Murray Official",
-  },
-  {
-    url: "https://www.meniudigital.ro/",
-    imgSrc: "/images/b/6.PNG",
-    authorName: "Digital Menu™",
-  },
-  {
-    url: "https://cryptololis.lol/#/",
-    imgSrc: "/images/c/1.PNG",
-    authorName: "second presale phases Cryptololis",
-  },
-  {
-    url: "https://en.cryptospells.jp/",
-    imgSrc: "/images/c/2.PNG",
-    authorName: "Vue.js and Ruby integration third-party services",
-  },
-  {
-    url: "https://dear-ella.c2x.world/en?",
-    imgSrc: "/images/c/3.PNG",
-    authorName: "Dear-ella XPLA Blockchain Ecosystem",
-  },
 ];
 
 export const careerPoints: CareerPoint[] = [
   {
     id: "pnt1",
     className: "pnt1",
-    title: "Front End Developer",
-    period: "( 2017 - 2019 )",
-    description:
-      "-Achieved a substantial 40% growth in sales through the implementation of a scalable design.\n-Crafted SEO strategies to achieve prominent rankings across top browser platforms.\n-Developed an app that monitors the trading activity of automated trading systems.\n-Integrated WebSockets data sources with a React UI layer.\n-Introduced Scrum processes such as sprints, planning, retros, and demos.\n-Developed new features using TypeScript, Next.js, React, and Redux.\n-Maintained the existing code and deployed new features using Vercel.\n-Tested front-end features and UI/UX using Cypress.",
+    title: "Character design",
+    icon: "design",
+    marker: "ring",
+    categoryId: "character-design",
+    period: "",
+    description: "",
   },
   {
     id: "pnt2",
     className: "pnt2",
-    title: "Back End Developer",
-    period: "(2019)",
-    description:
-      "-Developed back-end microservices in Node.js and TypeScript. Integrated them with AWS products (SQS, SMS, ES, and so on).\n-Prepared MySQL database architecture and migrations.\n-Migrated the database from Firebase with NoSQL to SQL with PostgreSQL, reducing infrastructure costs and running real-time BI.\n-Imported numerous external data in the core database, some coming from structured sources and others from free-form sources.\n-Developed tools to support the data-management team activity by providing insights about data issues and business-related inconsistencies.",
+    title: "Clip Studio Paint",
+    icon: "clip",
+    marker: "glow",
+    categoryId: "clip-studio",
+    period: "",
+    description: "",
   },
   {
     id: "pnt3",
     className: "pnt3",
-    title: "Full Stack Developer",
-    period: "( 2019 - 2023 )",
-    description:
-      "-Implemented new features for a veterinarian platform that make managing animal documentation easier using React and TypeScript.\n-Conducted small improvements and maintenance for a React Native application—iOS and Android versions—for the veterinary platform clients.\n- Improved and maintained a PDF documents generator based on React PDF library that allows veterinarians to print full animal health documentation.\n- Developed an app that allows users to speak to an AI avatar and, based on the scenario, produces feedback about their communication skills.\n- Prepared an analytics page with user record statistics in the app using AG Grid and AG Charts libraries.\n- Constructed a library that enables connections to back-end services and React applications via WebSockets.",
+    title: "OpenToonz",
+    icon: "toonz",
+    marker: "soft",
+    categoryId: "opentoonz",
+    period: "",
+    description: "",
   },
   {
     id: "pnt4",
     className: "pnt4",
-    title: "Senior Full Stack Developer",
-    period: "( 2023 - Present )",
-    description:
-      "-Built multiple web apps using combinations of React, React Native, Next.js, the MERN stack, and several different APIs.\n-Fixed issues with the legacy application not supporting modern browsers while maintaining backward compatibility.\n- Allowed the client's business to operate uninterrupted by the rapidly changing technology and user habits.\n- Developed and maintained the internal portal for financial management for the client.\n- Collaborated with multiple stakeholders with various requirements to develop the best possible software solution.\n- Adapted the back end to switch from MySQL to MongoDB, enhancing the scalability and performance of the database system better to handle the increasing volume of user data and transactions.",
+    title: "Other",
+    icon: "speed",
+    marker: "ring",
+    categoryId: "other",
+    period: "",
+    description: "",
   },
 ];
 
@@ -196,11 +161,93 @@ export const skillPoints: SkillPoint[] = [
   },
 ];
 
+export const projectCategories: ProjectCategory[] = [
+  {
+    id: "character-design",
+    title: "Character design",
+    subtitle: "Characters / Concepts",
+    icon: "design",
+    theme: "sky",
+    kind: "video",
+    items: [
+      "/projects/Character design/1.mp4",
+      "/projects/Character design/2.mp4",
+      "/projects/Character design/3.mp4",
+      "/projects/Character design/4.jpg",
+    ],
+  },
+  {
+    id: "clip-studio",
+    title: "Clip Studio Paint",
+    subtitle: "Illustration & Painting",
+    icon: "clip",
+    theme: "rose",
+    kind: "video",
+    items: [
+      "/projects/Clip Studio Paint/1.mp4",
+      "/projects/Clip Studio Paint/2.mp4",
+      "/projects/Clip Studio Paint/csp (10).mp4",
+      "/projects/Clip Studio Paint/csp (11).mp4",
+      "/projects/Clip Studio Paint/csp (12).mp4",
+      "/projects/Clip Studio Paint/csp (13).mp4",
+      "/projects/Clip Studio Paint/csp (14).mp4",
+      "/projects/Clip Studio Paint/csp (15).mp4",
+      "/projects/Clip Studio Paint/csp (16).mp4",
+    ],
+  },
+  {
+    id: "opentoonz",
+    title: "OpenToonz",
+    subtitle: "Animation / Frame by Frame",
+    icon: "toonz",
+    theme: "mint",
+    kind: "video",
+    items: [
+      "/projects/OpenToonz/0913.mp4",
+      "/projects/OpenToonz/0913(1).mp4",
+    ],
+  },
+  {
+    id: "other",
+    title: "Other",
+    subtitle: "More work",
+    icon: "speed",
+    theme: "lilac",
+    kind: "image",
+    items: [
+      "/projects/Other/1.png",
+      "/projects/Other/1 (1).png",
+      "/projects/Other/1 (2).jpg",
+      "/projects/Other/1 (2).mp4",
+      "/projects/Other/1 (3).jpg",
+      "/projects/Other/2.jpg",
+      "/projects/Other/3.png",
+      "/projects/Other/4.jpg",
+      "/projects/Other/5.jpg",
+      "/projects/Other/6.jpg",
+      "/projects/Other/7.mp4",
+    ],
+  },
+];
+
+export const introLetter = {
+  lead: [
+    "Creating captivating characters and",
+    "breathing life into static objects—this is the work I love most.",
+  ],
+  thanks: ["Thank you sincerely", "for visiting my world."],
+  close: [
+    "I look forward to collaborating on exciting projects",
+    "and creating truly wonderful results together.",
+  ],
+  name: "Mumei",
+};
+
 export const socialLinks = {
   email:
     "mailto:alicia0925martin@gmail.com?subject=Hello&body=Hi%20there! I saw your portfolio.",
-  discord: "https://discordapp.com/users/428386457237848085",
-  telegram: "https://t.me/crystal_xxk2",
+  discord: "https://discord.com/users/1531638870578429994",
+  whatsapp: "https://wa.me/79818795598",
 };
 
 export const aboutText =

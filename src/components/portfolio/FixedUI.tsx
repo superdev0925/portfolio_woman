@@ -62,11 +62,11 @@ export function FixedUI({
         />
 
         <a
-          href={socialLinks.telegram}
+          href={socialLinks.whatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="tele hoverStyle pa"
-          aria-label="Telegram"
+          className="whatsapp hoverStyle pa"
+          aria-label="WhatsApp"
         />
       </div>
     </>

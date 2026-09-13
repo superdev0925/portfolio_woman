@@ -15,11 +15,23 @@ export function BackgroundVideo({ id, src, playing }: BackgroundVideoProps) {
     const video = videoRef.current;
     if (!video) return;
 
-    if (playing) {
-      void video.play();
-    } else {
+    if (!playing) {
       video.pause();
+      return;
     }
+
+    const playAttempt = video.play();
+    if (playAttempt) {
+      void playAttempt.catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return;
+        }
+      });
+    }
+
+    return () => {
+      video.pause();
+    };
   }, [playing]);
 
   return (
@@ -30,7 +42,6 @@ export function BackgroundVideo({ id, src, playing }: BackgroundVideoProps) {
         src={src}
         preload="auto"
         muted
-        autoPlay
         loop
         playsInline
       />
